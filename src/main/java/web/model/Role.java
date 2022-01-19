@@ -1,8 +1,6 @@
 package web.model;
 
-import org.hibernate.annotations.GenericGenerator;
 import org.springframework.security.core.GrantedAuthority;
-
 import javax.persistence.*;
 import java.util.Set;
 
@@ -19,13 +17,11 @@ public class Role implements GrantedAuthority {
     @Column(name = "role")
     private String role;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "user_role"
-            , joinColumns = @JoinColumn(name = "role_id")
-            , inverseJoinColumns = @JoinColumn(name = "user_id"
-    ))
+    @ManyToMany(mappedBy = "roles")
     private Set<User> user;
+
+    public Role() {
+    }
 
     public Role(String role) {
         this.role = role;
