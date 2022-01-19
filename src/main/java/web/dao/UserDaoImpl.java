@@ -1,5 +1,6 @@
 package web.dao;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import web.model.User;
@@ -13,6 +14,8 @@ import java.util.List;
 public class UserDaoImpl implements UserDao {
     @PersistenceContext
     private EntityManager entityManager;
+
+    PasswordEncoder passwordEncoder;
 
     @Override
     public User getUserByEmail(String email) {
@@ -33,6 +36,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void add(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         entityManager.persist(user);
     }
 
