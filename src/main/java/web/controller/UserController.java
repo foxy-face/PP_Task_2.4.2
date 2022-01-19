@@ -8,16 +8,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import web.dao.UserDao;
 import web.model.User;
+import web.service.UserService;
 
 @Controller
 @RequestMapping("/user")
 public class UserController {
-	private final UserDao userDao;
-
-	@Autowired
-	public UserController(UserDao userDao) {
-		this.userDao = userDao;
-	}
 
 	@GetMapping("")
 	public String showUserInfo(@CurrentSecurityContext(expression = "authentication.principal") User principal,
